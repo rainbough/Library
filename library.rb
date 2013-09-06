@@ -19,10 +19,13 @@ class Book
 # 
 #
   def info
+  	puts "__________________________"
+  	puts " "
   	puts "Title: #{@title}"
   	puts "Author: #{@author}"
   	puts "Description: #{@description}"
-  	puts "Status: #{@available}"
+  	puts "Status: #{@status}"
+  	puts "__________________________"
   end
 #Checkout method
 #
@@ -31,22 +34,24 @@ class Book
 
 end
 
-
-puts "Welcome to the Makersquare Library."
-puts "What would you like to do?"
-puts "Commands:"
-puts "add -Add books to the library"
+command = "active"
+until command == "q"
+  puts "Welcome to the Makersquare Library."
+  puts "What would you like to do?"
+  puts "Commands:"
+  puts "add -Add books to the library"
+  puts "q -quit"
 =begin
 puts "list av - see a list of available books in the library"
 puts "list all - see a list of all books in the library"
 puts "list ov - see a list of overdue books in the library"
 =end
-command = gets.chomp.downcase
+  command = gets.chomp.downcase
 
-case command
-  when "add"
-    currentbook = Book.new()
-    currentbook.info
+  case command
+    when "add"
+      currentbook = Book.new()
+      currentbook.info
 =begin 
   when "list av"
 
@@ -54,6 +59,9 @@ case command
 
   when  "list ov"
 =end
-  else 
-  	puts "Response not understood."
-  end
+    when "q"
+    	break
+    else 
+  	  puts "Response not understood."
+    end
+end
