@@ -50,6 +50,9 @@ class Book
   def return
   	@status = :available
   end
+  def lost
+      @status = :lost
+  end
 
 end
 
@@ -57,9 +60,11 @@ class Library
   def initialize
     #@books {title, author}
     @books = Hash.new
+    @book_stats = Hash.new
 
     #@checked_out {title, status}
     @checked_out = Hash.new
+
   end
 
 # this method will maintain a list of books in the library
@@ -68,8 +73,27 @@ class Library
   def add(title, author)
   	
   	@books[title] = author
+   
 
   end
+  def add_status(title, status)
+     @book_stats[title]= status
+   end
+
+  def checked_out(title, status)
+    @checked_out[title] = status
+  end
+  
+  def availability(title)
+    @book_stats.each do |key, value|
+      if key == title && value == :available
+        return available
+        puts "This book is available."
+      else 
+        puts "Sorry this book is #{@status}."
+      end
+    end
+
   def books
   	puts "__________________________"
   	puts "The MakerSquare Library:"
@@ -91,12 +115,10 @@ until command == "q"
   puts "What would you like to do?"
   puts "Commands:"
   puts "add -Add books to the library"
+  puts "list - list all books in the library"
+  puts "co - check out a book"
   puts "q -quit"
-=begin
-puts "list av - see a list of available books in the library"
-puts "list all - see a list of all books in the library"
-puts "list ov - see a list of overdue books in the library"
-=end
+
 command = gets.chomp.downcase
 
   case command
@@ -108,13 +130,14 @@ command = gets.chomp.downcase
       makersquare.add(title, author)
       makersquare.books
 
-=begin 
-  when "list av"
+    when "co"
+      puts "What book would you like to check out?"
+      title = gets.chomp.downcase
+      makersquare.availability(title)
 
-  when "list all"
 
-  when  "list ov"
-=end
+    when "list"
+      makersquare.books
     when "q"
     	break
     else 
