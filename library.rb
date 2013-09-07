@@ -5,15 +5,15 @@
 class Book
 	 
   def initialize
-	puts "What is the title of the book?"
-	@title = gets.chomp
-	#@title_sym = @title.downcase.tr(" ", "_").to_sym
-	puts "Who is the author of the book?"
-	@author = gets.chomp
-	#@author_sym = @author.downcase.tr(" ", "_").to_sym
-	puts "Please enter a short description of the book:"
-	@description = gets.chomp
-	@status = :available
+	  puts "What is the title of the book?"
+	  @title = gets.chomp
+	  #@title_sym = @title.downcase.tr(" ", "_").to_sym
+	  puts "Who is the author of the book?"
+	  @author = gets.chomp
+	  #@author_sym = @author.downcase.tr(" ", "_").to_sym
+	  puts "Please enter a short description of the book:"
+	  @description = gets.chomp
+	  @status = :available
   end
 #This method returns the saved information on a book.
 #It does not take an argument.
@@ -45,7 +45,7 @@ class Book
 #
 #
   def check_out
-	@status = :checked_out
+	  @status = :checked_out
   end
   def return
   	@status = :available
@@ -77,7 +77,8 @@ class Library
 
   end
   def add_status(title, status)
-     @book_stats[title]= status
+     @book_stats[title] = status
+     puts "#{@book_stats}"
    end
 
   def checked_out(title, status)
@@ -86,13 +87,16 @@ class Library
   
   def availability(title)
     @book_stats.each do |key, value|
-      if key == title && value == :available
-        return available
+      if @book_stats.key?(key) && value == :available
+        
         puts "This book is available."
       else 
-        puts "Sorry this book is #{@status}."
+
+        puts "Sorry this book is #{value}."
       end
     end
+  end
+
 
   def books
   	puts "__________________________"
@@ -127,7 +131,9 @@ command = gets.chomp.downcase
       currentbook.info
       title = currentbook.printbook
       author = currentbook.printauthor
+      status = currentbook.printstatus
       makersquare.add(title, author)
+      makersquare.add_status(title, status)
       makersquare.books
 
     when "co"
@@ -142,5 +148,5 @@ command = gets.chomp.downcase
     	break
     else 
   	  puts "Response not understood."
-    end
+  end
 end
